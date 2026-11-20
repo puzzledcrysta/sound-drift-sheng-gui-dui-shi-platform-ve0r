@@ -12,4 +12,4 @@ ROLE = '口述历史音频整理员'
 UNIT = '毫秒'
 RULE_VERSION = 'sound-drift-1.0'
 SIGNATURE = '对齐锚段'
-TABS = {'intake': '录音来源', 'contract': '锚点字段', 'quality': '时码异常', 'domain': '双锚校时', 'reconcile': '制作勾稽', 'runs': '片段批次', 'review': '校时复核'}
+TABS = {'intake': '录音来源', 'contract': '锚点字段', 'quality': '时码异常', 'domain': '双锚校时', 'reconcile': '制作勾稽', 'runs': '片段批次', 'review': '校时复核', 'carryover': '复核沿用'}

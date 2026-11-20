@@ -9,6 +9,10 @@ REASONS = {
     'AMOUNT_DELTA': '复算与外部账计量不同', 'BOOK_CONFLICT': '独立账含重复业务键',
     'RUN_UNKNOWN': '没有此批次', 'DEMO_UNKNOWN': '没有此样例', 'STALE': '复核版本已过期',
     'REVIEW_NOTE': '有差异时须填写复核意见', 'REVIEW_DECISION': '复核结论无效',
+    'CARRY_OVER': '可沿用原确认', 'REVIEW_TIMECODE': '时码变动须重审',
+    'REVIEW_STALE_REVISION': '旧修订不能冲掉补正', 'REVIEW_QUARANTINED': '片段被隔离须重审',
+    'REVIEW_NEW_KEY': '新片段须复核', 'BASELINE_NONE': '缺少确认基准批次',
+    'BASELINE_UNCONFIRMED': '基准批次尚未确认',
 }
 
 REASONS.update({'SOUND_ANCHOR': '锚点无效', 'SOUND_COVERAGE': '片段超出覆盖', 'SOUND_REWIND': '参考时钟回退', 'SOUND_PPM': '漂移超限', 'DATE': '日期格式无效', 'REV_BLOCKED': '较新来源尚未采信'})

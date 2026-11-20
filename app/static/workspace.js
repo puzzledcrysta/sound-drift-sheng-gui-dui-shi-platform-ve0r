@@ -92,16 +92,41 @@ async function render() {
   const ticket = ++renderEpoch;
   const stage = selected;
   byId('phase').textContent = settings.tabs[stage];
+  byId('baseline-id').hidden = stage !== 'carryover';
   byId('review').hidden = true;
   for (const link of links) {
     if (link.dataset.module === stage) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   }
+  const key = [settings.key, 'key'];
+  const line = ['行号', 'line', 'num'];
+  if (stage === 'carryover') {
+    try {
+      const report = await query('/api/carryover', inputs);
+      if (ticket !== renderEpoch) return;
+      byId('baseline-id').textContent = report.baseline_run_id.slice(0, 9);
+      byId('baseline-id').title = report.baseline_run_id;
+      const view = [key, ['修订','revision','num'],
+                    ['校准始 · 毫秒','start_ms','num'], ['校准止 · 毫秒','end_ms','num'],
+                    ['时长 · 毫秒','amount','num'], line,
+                    ['判定', row => tag(row.code)], ['说明','detail'],
+                    ['指纹', row => el('span', row.fingerprint ? row.fingerprint.slice(0, 12) : '—', 'num')]];
+      if (activeView?.stage !== stage) filter.value = '';
+      activeView = {stage, columns: view, rows: report.verdicts};
+      byId('tools').hidden = false;
+      byId('only-differences').hidden = true;
+      filterTable();
+    } catch (error) {
+      if (ticket === renderEpoch) {
+        notice(error.message, true);
+        body.replaceChildren(el('p', '先在「校时复核」确认一个基准批次，再运行沿用判定', 'empty'));
+      }
+    }
+    return;
+  }
   if (!result) return;
   const id = result.manifest.run_id;
   const raw = row => evidence('来源字段', row.raw);
-  const key = [settings.key, 'key'];
-  const line = ['行号', 'line', 'num'];
   try {
     let view, rows;
     if (stage === 'domain') {

@@ -15,6 +15,7 @@
 | M5 制作勾稽 | 核对独立清单和各类差异 | `POST /api/reconcile` | `app/modules/reconcile/service.py` | `tests/test_reconcile.py` |
 | M6 片段批次 | 打开历史批次并对原文件复跑 | `POST /api/runs` | `app/modules/runs/service.py` | `tests/test_runs.py` |
 | M7 校时复核 | 登记复核结论并下载证据 | `POST /api/review/{run_id}` | `app/modules/review/decisions.py` | `tests/test_review.py` |
+| M8 复核沿用 | 补录锚点后逐片段判定沿用或重审 | `POST /api/carryover` | `app/modules/carryover/service.py` | `tests/test_carryover.py` |
 
 ## 陷阱登记
 
@@ -33,6 +34,9 @@
 | TRAP-17 | 旧版列名映射 | legacy.csv | `app/modules/contract/schema.py` | `tests/test_contract.py::test_legacy_aliased` |
 | TRAP-18 | 空文件、空白文件与仅表头 | 测试构造 | `app/modules/intake/service.py` | `tests/test_intake.py::test_empty_states` |
 | TRAP-26 | 陈旧复核版本拒绝 | 测试构造 | `app/modules/review/decisions.py` | `tests/test_review.py::test_stale` |
+| TRAP-27 | 同长时码平移：时长一致但起止时码已变 | 测试构造 | `app/modules/carryover/service.py` | `tests/test_carryover.py::test_same_duration_shifted_timecode_requires_review` |
+| TRAP-28 | 晚到旧修订不能冲掉已采信补正 | 测试构造 | `app/modules/carryover/service.py` | `tests/test_carryover.py::test_late_old_revision_cannot_overwrite_accepted_fix` |
+| TRAP-29 | 同补正重试幂等沿用，不重复挂起复核 | 测试构造 | `app/modules/carryover/service.py` | `tests/test_carryover.py::test_identical_reread_carries_confirmation` |
 | TRAP-09 | large index | cases.csv | `app/modules/domain/rule.py` | `tests/test_domain.py::test_large_index` |
 | TRAP-108 | rewound | cases.csv | `app/modules/domain/rule.py` | `tests/test_domain.py::test_rewound` |
 
